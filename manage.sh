@@ -98,23 +98,34 @@ Copyright (c) UXBOX Labs SL
 EOF
 }
 
-function build-app-bundle {
-    echo ">> bundle app start";
+function build-frontend-bundle {
+    echo ">> bundle frontend start";
 
     local version=$(print-current-version);
-    local bundle_dir="./bundle-app";
+    local bundle_dir="./bundle-frontend";
 
     build "frontend";
+
+    rm -rf $bundle_dir;
+    mv ./frontend/target/dist $bundle_dir;
+    echo $version > $bundle_dir/version.txt;
+    put-license-file $bundle_dir;
+    echo ">> bundle frontend end";
+}
+
+function build-backend-bundle {
+    echo ">> bundle backend start";
+
+    local version=$(print-current-version);
+    local bundle_dir="./bundle-backend";
+
     build "backend";
 
-    rm -rf $bundle_dir
-    mkdir -p $bundle_dir;
-    mv ./frontend/target/dist $bundle_dir/frontend;
-    mv ./backend/target/dist $bundle_dir/backend;
-
-    echo $version > $bundle_dir/version.txt
+    rm -rf $bundle_dir;
+    mv ./backend/target/dist $bundle_dir;
+    echo $version > $bundle_dir/version.txt;
     put-license-file $bundle_dir;
-    echo ">> bundle app end";
+    echo ">> bundle frontend end";
 }
 
 function build-exporter-bundle {
