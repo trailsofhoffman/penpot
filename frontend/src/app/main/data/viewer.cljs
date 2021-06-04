@@ -20,7 +20,7 @@
    [app.util.router :as rt]
    [beicon.core :as rx]
    [cljs.spec.alpha :as s]
-   [potok.core :as ptk]))
+   [potok.core :as ptk :include-macros true]))
 
 ;; --- General Specs
 
@@ -68,6 +68,7 @@
   (ptk/reify ::initialize
     ptk/UpdateEvent
     (update [_ state]
+      (prn "KAKADEVACA")
       (-> state
           (assoc :current-file-id file-id)
           (assoc :current-page-id page-id)
