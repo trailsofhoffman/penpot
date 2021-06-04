@@ -26,16 +26,16 @@
        ;; (when-not (c/some? ~(symbol "potok.core" (c/str t)))
        ;; (when-not ~(list (symbol "js*") "(typeof ~{} !== 'undefined')" (symbol "js" (str t)))
        (when-not (c/exists? ~(symbol "js" (str t)))
-         (deftype ~t [~@locals ~meta-sym]
-           c/IWithMeta
-           (~'-with-meta [~this-sym ~meta-sym] (new ~t ~@locals ~meta-sym))
+         (set! ~(symbol "js" (str t))
+               (deftype ~t [~@locals ~meta-sym]
+                 c/IWithMeta
+                 (~'-with-meta [~this-sym ~meta-sym] (new ~t ~@locals ~meta-sym))
 
-           c/IMeta
-           (~'-meta [~this-sym] ~meta-sym)
+                 c/IMeta
+                 (~'-meta [~this-sym] ~meta-sym)
 
-           ~'potok.core/Event
-           (~'-type [_#] ~type)
+                 ~'potok.core/Event
+                 (~'-type [_#] ~type)
 
-           ~@impls)
-         (set! ~(symbol "js" (str t)) ~t))
-       (new ~t ~@locals ~(ana/elide-reader-meta (meta &form))))))
+                 ~@impls)))
+       (new ~(symbol "js" (str t)) ~@locals ~(ana/elide-reader-meta (meta &form))))))
