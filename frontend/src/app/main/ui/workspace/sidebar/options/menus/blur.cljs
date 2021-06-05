@@ -15,8 +15,27 @@
    [app.main.ui.icons :as i]
    [app.main.ui.workspace.sidebar.options.common :refer [advanced-options]]
    [app.main.ui.workspace.sidebar.options.rows.input-row :refer [input-row]]
+   [potok.core :as ptk]
    [app.util.dom :as dom]
    [app.util.i18n :as i18n :refer [t]]))
+
+(defn sample1
+  [x]
+  (reify
+    potok.core/Event
+    (-type [_] :foobar)
+
+    ptk/UpdateEvent
+    (update [_ state]
+      (update state :foobar inc))))
+
+(defn sample2
+  [x]
+  (ptk/reify :foobar
+    ptk/UpdateEvent
+    (update [_ state]
+      (update state :foobar inc))))
+
 
 (def blur-attrs [:blur])
 

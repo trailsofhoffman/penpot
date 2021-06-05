@@ -62,6 +62,24 @@
   (s/keys :req-un [::page-id ::file-id]
           :opt-in [::token]))
 
+
+(defn sample1
+  [x]
+  (reify
+    potok.core/Event
+    (-type [_] :foobar)
+
+    ptk/UpdateEvent
+    (update [_ state]
+      (update state :foobar inc))))
+
+(defn sample2
+  [x]
+  (ptk/reify :foobar
+    ptk/UpdateEvent
+    (update [_ state]
+      (update state :foobar inc))))
+
 (defn initialize
   [{:keys [page-id file-id token] :as params}]
   (us/assert ::initialize-params params)
