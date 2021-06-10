@@ -45,11 +45,12 @@
 (s/def ::password ::us/not-empty-string)
 (s/def ::email ::us/email)
 (s/def ::invitation-token ::us/not-empty-string)
-(s/def ::terms-privacy ::us/boolean)
+(s/def ::accept-terms-and-privacy ::us/boolean)
+(s/def ::subscribe-to-newsletter ::us/boolean)
 
 (s/def ::register-form
   (s/keys :req-un [::password ::fullname ::email ::terms-privacy]
-          :opt-un [::invitation-token]))
+          :opt-un [::invitation-token ::subscribe-to-newsletter]))
 
 (mf/defc register-form
   [{:keys [params] :as props}]
@@ -116,14 +117,14 @@
                     :type "password"}]]
 
      [:div.fields-row
-      [:& fm/input {:name :terms-privacy
+      [:& fm/input {:name :accept-terms-and-privacy
                     :class "check-primary"
                     :tab-index "4"
                     :label (tr "auth.terms-privacy-agreement")
                     :type "checkbox"}]]
 
      [:div.fields-row
-      [:& fm/input {:name :terms-privacy
+      [:& fm/input {:name :subscribe-to-newsletter
                     :class "check-primary"
                     :tab-index "5"
                     :label (tr "auth.newsletter-terms")

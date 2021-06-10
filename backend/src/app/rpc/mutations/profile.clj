@@ -47,11 +47,12 @@
 (declare register-profile)
 
 (s/def ::invitation-token ::us/not-empty-string)
-(s/def ::terms-privacy ::us/boolean)
+(s/def ::accept-terms-and-privacy ::us/boolean)
+(s/def ::subscribe-to-newsletter ::us/boolean)
 
 (s/def ::register-profile
   (s/keys :req-un [::email ::password ::fullname ::terms-privacy]
-          :opt-un [::invitation-token]))
+          :opt-un [::invitation-token ::subscribe-to-newsletter]))
 
 (sv/defmethod ::register-profile {:auth false :rlimit :password}
   [{:keys [pool tokens session] :as cfg} params]
